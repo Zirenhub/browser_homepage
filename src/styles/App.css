@@ -1,0 +1,101 @@
+:root {
+  --main-bg-color: #282828;
+
+  --red: #cc241d;
+  --red2: #fb4934;
+
+  --green: #98971c;
+  --green2: #b8bb26;
+
+  --yellow: #d79921;
+  --yellow2: #fabd2f;
+
+  --blue: #458588;
+  --blue2: #83a598;
+
+  --purple: #b16286;
+  --purple2: #d3869b;
+
+  --aqua: #689d6a;
+  --aqua2: #8ec07c;
+
+  --gray: #a89984;
+  --gray2: #928374;
+
+  --fg: #ebdbb2;
+
+  --white: #f5f2e9;
+  --dim-gray: #696969;
+  --dim-black: #181818;
+}
+
+:root {
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1)
+}
+
+.main-container {
+  height: 100%;
+  width: 100%;
+  background-color: var(--main-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px;
+}
+
+.search-box-container {
+  /* align-self: flex-end; */
+}
+
+.search-box {
+  border-radius: 10px;
+  width: 300px;
+  height: 40px;
+  outline: none;
+  padding: 0px 10px;
+  font-size: large;
+  background-color: var(--gray);
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
+
+.shortcuts-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex: 1;
+  align-items: center;
+}
+
+.shortcut-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 5px 10px;
+  transition: 150ms ease-in-out;
+}
+
+.shortcut-container:hover {
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.shortcut-ico {
+  object-fit: contain;
+  height: 90px;
+  width: 90px;
+}
+
+.shortcut-text {
+  border: 1px solid transparent;
+  padding: 5px 15px;
+  background-color: var(--aqua2);
+  box-shadow: var(--shadow-lg);
+  font-size: large;
+}
