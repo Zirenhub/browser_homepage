@@ -1,8 +1,8 @@
-import youtubeIco from './assets/youtube.svg';
-import redditIco from './assets/reddit.svg';
-import twitchIco from './assets/twitch.svg';
-import twitterIco from './assets/twitter.svg';
-import windyIco from './assets/windy.svg';
+import youtubeIco from '../../assets/youtube.svg';
+import redditIco from '../../assets/reddit.svg';
+import twitchIco from '../../assets/twitch.svg';
+import twitterIco from '../../assets/twitter.svg';
+import windyIco from '../../assets/windy.svg';
 
 const shortcuts = [
   {
