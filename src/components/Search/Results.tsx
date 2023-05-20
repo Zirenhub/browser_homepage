@@ -1,7 +1,7 @@
 import { GoogleSearchResult, Pagemap } from '../../types/google';
 
 type Props = {
-  results: GoogleSearchResult | null;
+  results: GoogleSearchResult;
 };
 
 function getImageSource(pagemap: Pagemap): string | undefined {
@@ -20,27 +20,26 @@ function getImageSource(pagemap: Pagemap): string | undefined {
 }
 
 function Results({ results }: Props) {
-  if (results) {
-    return (
-      <div className="flex flex-col border border-yellow m-2 p-2 rounded-lg shadow-lg overflow-y-scroll">
-        {results.map((r) => {
-          const imageSource = getImageSource(r.pagemap);
-          return (
-            <div className="flex flex-col" key={r.link}>
-              <div className="flex gap-3 items-center">
-                {imageSource && <img src={imageSource} className='h-auto w-12 object-contain' />}
-                <a type="button" href={r.link} className="text-aqua font-bold">
-                  {r.title}
-                </a>
-              </div>
-              <p className="text-gray2">{r.snippet}</p>
+  return (
+    <div className="flex flex-col h-fit border border-yellow m-2 p-2 rounded-lg shadow-lg">
+      {results.map((r) => {
+        const imageSource = getImageSource(r.pagemap);
+        return (
+          <div className="flex grow flex-col" key={r.link}>
+            <div className="flex gap-3 items-center">
+              {imageSource && (
+                <img src={imageSource} className="h-auto w-12 object-contain" />
+              )}
+              <a type="button" href={r.link} className="text-aqua font-bold">
+                {r.title}
+              </a>
             </div>
-          );
-        })}
-      </div>
-    );
-  }
-  return null;
+            <p className="text-gray2">{r.snippet}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export default Results;
