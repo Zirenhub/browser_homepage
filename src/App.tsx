@@ -7,32 +7,39 @@ import Results from './components/Search/Results';
 import Clock from './components/Clock';
 import Notes from './components/Notes';
 
+type SearchProps = {
+  searchResults: GoogleSearchResult | null;
+  searchQuery: string;
+};
+
 function App() {
-  const [searchResults, setSearchResults] = useState<GoogleSearchResult | null>(
-    null
-  );
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchProps, setSearchProps] = useState<SearchProps>({
+    searchResults: null,
+    searchQuery: '',
+  });
 
-  async function handleSearch() {
-    const data = await search(searchQuery);
-    if (data) {
-      setSearchResults(data);
-    }
-  }
-
-  function handleSubmit(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter' && searchQuery) {
-      handleSearch();
+  async function handleSubmit(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter' && searchProps.searchQuery) {
+      const data = await search(searchProps.searchQuery);
+      if (data) {
+        setSearchProps((prevState) => {
+          return { ...prevState, searchResults: data };
+        });
+      }
     }
   }
 
   function handleInputChange(e: React.SyntheticEvent) {
     const target = e.target as HTMLInputElement;
-    setSearchQuery(target.value);
+    setSearchProps((prevState) => {
+      return { ...prevState, searchQuery: target.value };
+    });
   }
 
   function handleClearResults() {
-    setSearchResults(null);
+    setSearchProps((prevState) => {
+      return { ...prevState, searchResults: null };
+    });
   }
 
   return (
@@ -41,14 +48,14 @@ function App() {
         <div className="w-[40%]">
           <input
             type="text"
-            value={searchQuery}
+            value={searchProps.searchQuery}
             onChange={handleInputChange}
             onKeyDown={handleSubmit}
             placeholder="Search"
             className="pb-1 bg-transparent w-full outline-none text-center text-white focus:border-b-red/70 border-b-yellow/25 border-b"
           />
         </div>
-        {searchResults && (
+        {searchProps.searchResults && (
           <button
             type="button"
             onClick={handleClearResults}
@@ -60,12 +67,17 @@ function App() {
       </div>
       <div className="flex h-full py-2 relative overflow-y-scroll">
         <Shortcuts />
-        {searchResults ? (
-          <Results results={searchResults} />
+        {searchProps.searchResults ? (
+          <Results results={searchProps.searchResults} />
         ) : (
-          <div className="flex-1 px-2 flex flex-col gap-3">
+          <div className="flex-1 px-2 flex flex-col gap-8">
             <Clock />
             <Notes />
+            <div className="grow flex items-center pl-8">
+              <p className="text-[80px] text-aqua font-bold">
+                Welcome, <span className='text-red'>Erdinch</span>
+              </p>
+            </div>
           </div>
         )}
       </div>
