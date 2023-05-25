@@ -70,13 +70,19 @@ function App() {
         {searchProps.searchResults ? (
           <Results results={searchProps.searchResults} />
         ) : (
-          <div className="flex-1 px-2 flex flex-col gap-8">
-            <Clock />
-            <Notes />
-            <div className="grow flex items-center pl-8">
+          <div className="flex-1 px-3 flex flex-col">
+            <div className="grow flex gap-3 max-h-full">
+              <Clock />
+              <Notes />
+            </div>
+            <div className="flex items-center justify-between">
               <p className="text-[80px] text-aqua font-bold">
-                Welcome, <span className='text-red'>Erdinch</span>
+                Welcome, <span className="text-red">Erdinch</span>
               </p>
+              <img
+                src="src/assets/guts.jpg"
+                className="max-h-[200px] max-w-auto object-contain border border-yellow"
+              />
             </div>
           </div>
         )}

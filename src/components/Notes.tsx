@@ -51,7 +51,7 @@ function NotesComp() {
   }, []);
 
   return (
-    <div className="flex flex-col overflow-scroll gap-3 rounded-sm bg-dim-black w-[250px] hover:border-red2/60">
+    <div className="flex flex-col max-h-full overflow-scroll gap-3 rounded-sm border border-transparent transition-all bg-dim-black w-[250px] hover:border-red2/60">
       <div className="sticky top-0 bg-dim-black w-full flex flex-col justify-center">
         <p className="text-yellow2 self-center">Notes</p>
         <input
@@ -71,11 +71,11 @@ function NotesComp() {
           className={`${inputClass} overflow-hidden`}
         />
       </div>
-      <div className="flex flex-col px-3">
+      <div className="flex flex-col px-3 grow max-h-full">
         {notes.length > 0 ? (
           notes.map((n) => {
             return (
-              <div key={n.key} className='border-b border-dim-gray'>
+              <div key={n.key} className="border-b border-dim-gray">
                 <p className="text-green2 text-center">{n.title}</p>
                 <p className="text-white text-center break-words">
                   {n.content}
@@ -84,7 +84,7 @@ function NotesComp() {
             );
           })
         ) : (
-          <p className='text-center text-blue2/40'>Notes go here!</p>
+          <p className="text-center text-blue2/40">Notes go here!</p>
         )}
       </div>
       <div className="sticky bottom-0 p-2 w-full bg-dim-black flex justify-between items-center">
