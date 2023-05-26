@@ -1,11 +1,12 @@
-import './index.css';
-import { search } from './api/google';
-import { useState } from 'react';
-import { GoogleSearchResult } from './types/google';
-import Shortcuts from './components/Shortcuts/Shortcuts';
-import Results from './components/Search/Results';
-import Clock from './components/Clock';
-import Notes from './components/Notes';
+import "./index.css";
+import { search } from "./api/google";
+import { useState } from "react";
+import { GoogleSearchResult } from "./types/google";
+import Shortcuts from "./components/Shortcuts/Shortcuts";
+import Results from "./components/Search/Results";
+import Clock from "./components/Clock";
+import Notes from "./components/Notes";
+import Quote from "./components/Quote";
 
 type SearchProps = {
   searchResults: GoogleSearchResult | null;
@@ -15,11 +16,11 @@ type SearchProps = {
 function App() {
   const [searchProps, setSearchProps] = useState<SearchProps>({
     searchResults: null,
-    searchQuery: '',
+    searchQuery: "",
   });
 
   async function handleSubmit(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter' && searchProps.searchQuery) {
+    if (e.key === "Enter" && searchProps.searchQuery) {
       const data = await search(searchProps.searchQuery);
       if (data) {
         setSearchProps((prevState) => {
@@ -70,20 +71,14 @@ function App() {
         {searchProps.searchResults ? (
           <Results results={searchProps.searchResults} />
         ) : (
-          <div className="flex-1 px-3 flex flex-col">
-            <div className="grow flex gap-3 max-h-full">
-              <Clock />
-              <Notes />
+          <div className="flex px-3 flex-col h-full w-full justify-between">
+            <div className="flex grow max-h-full">
+              <div className="flex flex-col gap-3">
+                <Clock />
+                <Notes />
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <p className="text-[80px] text-aqua font-bold">
-                Welcome, <span className="text-red">Erdinch</span>
-              </p>
-              <img
-                src="src/assets/guts.jpg"
-                className="max-h-[200px] max-w-auto object-contain border border-yellow"
-              />
-            </div>
+            <Quote />
           </div>
         )}
       </div>
