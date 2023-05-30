@@ -1,8 +1,8 @@
-import { GoogleSearchResult } from '../types/google';
+import { GoogleSearchResult } from "../types/google";
 
 const GOOGLE_API = import.meta.env.VITE_GOOGLE_API;
 const ENGINE_ID = import.meta.env.VITE_ENGINE_ID;
-const FIELDS = 'items(title,link,pagemap,snippet)';
+const FIELDS = "items(title,link,pagemap,snippet)";
 
 async function search(query: string) {
   try {

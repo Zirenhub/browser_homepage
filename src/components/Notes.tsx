@@ -51,7 +51,7 @@ function NotesComp() {
   }, []);
 
   return (
-    <div className="flex flex-col max-h-full overflow-scroll gap-3 rounded-sm border border-transparent transition-all bg-dim-black w-[250px] hover:border-red2/60">
+    <div className="flex flex-col overflow-scroll gap-3 rounded-lg border border-transparent transition-all bg-dim-black grow w-[250px] hover:border-red2/60">
       <div className="sticky top-0 bg-dim-black w-full flex flex-col justify-center">
         <p className="text-yellow2 self-center">Notes</p>
         <input

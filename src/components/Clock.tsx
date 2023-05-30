@@ -59,7 +59,7 @@ function Clock() {
 
   return (
     <div className="w-fit">
-      <div className="transition-all hover:scale-105 hover:border-red2 cursor-pointer flex flex-col rounded-sm leading-none bg-dim-black border border-transparent w-fit items-center p-2">
+      <div className="transition-all rounded-lg hover:border-red2 cursor-pointer flex flex-col leading-none bg-dim-black border border-transparent w-fit items-center p-2">
         <p className="text-gray2 text-[5rem]">
           {time.hour}
           <span className="text-blue">:</span>

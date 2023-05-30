@@ -1,12 +1,12 @@
-import "./index.css";
-import { search } from "./api/google";
-import { useState } from "react";
-import { GoogleSearchResult } from "./types/google";
-import Shortcuts from "./components/Shortcuts/Shortcuts";
-import Results from "./components/Search/Results";
-import Clock from "./components/Clock";
-import Notes from "./components/Notes";
-import Quote from "./components/Quote";
+import './index.css';
+import { search } from './api/google';
+import { useState } from 'react';
+import { GoogleSearchResult } from './types/google';
+import Shortcuts from './components/Shortcuts/Shortcuts';
+import Results from './components/Search/Results';
+import Clock from './components/Clock';
+import Notes from './components/Notes';
+import Quote from './components/Quote';
 
 type SearchProps = {
   searchResults: GoogleSearchResult | null;
@@ -16,11 +16,11 @@ type SearchProps = {
 function App() {
   const [searchProps, setSearchProps] = useState<SearchProps>({
     searchResults: null,
-    searchQuery: "",
+    searchQuery: '',
   });
 
   async function handleSubmit(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter" && searchProps.searchQuery) {
+    if (e.key === 'Enter' && searchProps.searchQuery) {
       const data = await search(searchProps.searchQuery);
       if (data) {
         setSearchProps((prevState) => {
