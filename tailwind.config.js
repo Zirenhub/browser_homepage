@@ -31,8 +31,6 @@ export default {
       gray: '#a89984',
       gray2: '#928374',
 
-      fg: '#ebdbb2',
-
       white: '#f5f2e9',
       'dim-gray': '#696969',
       'dim-black': '#181818',
