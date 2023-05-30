@@ -5,7 +5,7 @@ type Time = {
   minute: number | string;
   day: number;
   month: number | string;
-  year: number;
+  year: number | string;
   dayName: string;
 };
 
@@ -30,13 +30,13 @@ function Clock() {
 
   useEffect(() => {
     const days: Record<number, string> = {
-      0: 'Monday/Понеделник',
-      1: 'Tuesday/Вторник',
-      2: 'Wednesday/Сряда',
-      3: 'Thursday/Четвъртък',
-      4: 'Friday/Петък',
-      5: 'Saturday/Събота',
-      6: 'Sunday/Неделя',
+      1: 'Monday/Понеделник',
+      2: 'Tuesday/Вторник',
+      3: 'Wednesday/Сряда',
+      4: 'Thursday/Четвъртък',
+      5: 'Friday/Петък',
+      6: 'Saturday/Събота',
+      7: 'Sunday/Неделя',
     };
 
     function refreshTime() {
@@ -46,7 +46,7 @@ function Clock() {
         minute: formatDate(newDate.getMinutes()),
         day: newDate.getDate(),
         month: formatDate(newDate.getMonth(), 1),
-        year: newDate.getFullYear(),
+        year: newDate.getFullYear().toString().slice(2),
         dayName: days[newDate.getDay()],
       };
       setTime(newTime);
@@ -58,22 +58,17 @@ function Clock() {
   }, []);
 
   return (
-    <div className="w-fit">
-      <div className="transition-all rounded-lg hover:border-red2 cursor-pointer flex flex-col leading-none bg-dim-black border border-transparent w-fit items-center p-2">
-        <p className="text-gray2 text-[5rem]">
-          {time.hour}
-          <span className="text-blue">:</span>
-          {time.minute}
+    <div className="w-fit font-bold cursor-pointer">
+      <div className="flex flex-col leading-none items-center border-b border-yellow pb-2">
+        <p className="text-[5rem] text-white [text-shadow:_0_8px_0_rgb(0_0_0_/_40%)]">
+          <span className="text-yellow2/90">{time.hour}</span>:
+          <span>{time.minute}</span>
         </p>
-        <p className="text-gray text-[2rem]">
-          {time.day}
-          <span className="text-aqua">.</span>
-          {time.month}
-          <span className="text-aqua">.</span>
-          {time.year}
+        <p className="text-gray text-[2rem] [text-shadow:_0_3px_0_rgb(0_0_0_/_10%)]">
+          {time.day}.{time.month}.{time.year}
         </p>
-        <p className="text-green">{time.dayName}</p>
       </div>
+      <p className="text-white px-2 bg-yellow w-fit">{time.dayName}</p>
     </div>
   );
 }

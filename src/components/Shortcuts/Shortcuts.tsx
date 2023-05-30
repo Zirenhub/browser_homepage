@@ -1,18 +1,35 @@
+import { useState } from 'react';
 import shortcuts from './data';
 
 function Shortcuts() {
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+
   return (
-    <div className='flex ml-2 flex-col items-center justify-between sticky left-0 top-0'>
+    <div className="flex bg-white shrink-0 rounded-lg shadow-md">
       {shortcuts.map((s) => {
+        const isHovered = hoveredLink === s._id;
+
         return (
           <a
             type="button"
+            onMouseEnter={() => setHoveredLink(s._id)}
+            onMouseLeave={() => setHoveredLink(null)}
             href={s.link}
-            key={s.key}
-            className='p-2 w-24 flex flex-col justify-center items-center text-white border border-transparent hover:border-red2 hover:scale-105 transition-all'
+            key={s._id}
+            className={`${
+              isHovered ? 'border-b-4 border-aqua' : null
+            } relative flex flex-col items-center justify-center p-2 h-18 w-18`}
           >
-            <img src={s.ico} alt={s.name} className='object-contain block h-10 w-10' />
-            <p>{s.name}</p>
+            {isHovered && (
+              <p className="absolute -top-7 bg-aqua text-white rounded-full px-2">
+                {s.name}
+              </p>
+            )}
+            <img
+              src={s.ico}
+              alt={s.name}
+              className="object-contain block h-8 w-8"
+            />
           </a>
         );
       })}
