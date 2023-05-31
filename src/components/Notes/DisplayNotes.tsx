@@ -3,9 +3,10 @@ import { TNotes } from '../../types/notes';
 
 type Props = {
   notes: TNotes;
+  deleteNote: (id: string) => void;
 };
 
-function DisplayNotes({ notes }: Props) {
+function DisplayNotes({ notes, deleteNote }: Props) {
   const [activeSettings, setActiveSettings] = useState<string | null>(null);
 
   function openSettings(id: string) {
@@ -17,11 +18,11 @@ function DisplayNotes({ notes }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-3 w-[300px]">
+    <div className="flex flex-col gap-3 w-[300px] px-1 py-2">
       {notes.map((n) => {
         return (
           <div
-            className="flex bg-gray rounded-sm px-2 py-2 justify-between items-start relative"
+            className="flex transition-all hover:bg-gray/80 bg-gray rounded-sm px-2 py-2 justify-between items-start relative"
             key={n.key}
           >
             <div className="flex flex-col w-full overflow-scroll">
@@ -36,8 +37,10 @@ function DisplayNotes({ notes }: Props) {
               ...
             </button>
             {activeSettings === n.key && (
-              <div className="absolute bg-white hover:bg-white/70 right-3 top-10 rounded-md px-2">
-                <button type="button">Delete</button>
+              <div className="absolute bg-white z-10 hover:bg-white/70 right-3 top-10 rounded-md px-2">
+                <button type="button" onClick={() => deleteNote(n.key)}>
+                  Delete
+                </button>
               </div>
             )}
           </div>

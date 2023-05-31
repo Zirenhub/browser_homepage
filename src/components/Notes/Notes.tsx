@@ -12,7 +12,7 @@ function Notes() {
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const inputClass =
-    'bg-transparent border-b-2 border-gray2 text-white/70 w-full py-2 px-1 outline-none';
+    'bg-transparent border-b-2 border-gray2 text-white/70 py-2 px-3 outline-none';
 
   function handleChange(e: React.SyntheticEvent) {
     const target = e.target as HTMLInputElement;
@@ -44,12 +44,9 @@ function Notes() {
   }
 
   function deleteNote(id: string) {
-    // todo
-  }
-
-  function getButtonClass(color: string) {
-    // "hover:bg-${color}" WONT WORK Tailwind CSS does not support dynamic class names
-    return `bg-${color}/70 transition-all rounded-sm px-3 font-bold text-white`;
+    const updatedNotes = notes.filter((n) => n.key !== id);
+    setNotes(updatedNotes);
+    saveNotes(updatedNotes);
   }
 
   useEffect(() => {
@@ -61,36 +58,38 @@ function Notes() {
   }, []);
 
   return (
-    <div className="bg-dim-black/70 p-1 rounded-sm shadow-lg flex flex-col gap-1 overflow-y-scroll overflow-x-hidden">
-      <input
-        type="text"
-        name="title"
-        onChange={handleChange}
-        value={note.title}
-        placeholder="Note Title"
-        className={inputClass}
-      />
-      <textarea
-        name="content"
-        ref={textAreaRef}
-        onChange={handleChange}
-        value={note.content}
-        placeholder="Note Content"
-        className={inputClass}
-      />
-      <DisplayNotes notes={notes} />
-      <div className="flex justify-between mt-3">
+    <div className="bg-dim-black/70 rounded-sm shadow-lg flex flex-col overflow-y-scroll overflow-x-hidden">
+      <div className="flex flex-col sticky top-0 bg-dim-black z-10 pb-1">
+        <input
+          type="text"
+          name="title"
+          onChange={handleChange}
+          value={note.title}
+          placeholder="Note Title"
+          className={inputClass}
+        />
+        <textarea
+          name="content"
+          ref={textAreaRef}
+          onChange={handleChange}
+          value={note.content}
+          placeholder="Note Content"
+          className={inputClass}
+        />
+      </div>
+      <DisplayNotes notes={notes} deleteNote={deleteNote} />
+      <div className="flex justify-between sticky bottom-0 bg-dim-black px-3 py-1">
         <button
           type="button"
           onClick={handleSubmit}
-          className={`${getButtonClass('red')} hover:bg-red`}
+          className="bg-red/70 transition-all rounded-sm px-3 font-bold text-white hover:bg-red"
         >
           Save
         </button>
         <button
           type="button"
           onClick={handleClear}
-          className={`${getButtonClass('aqua')} hover:bg-aqua`}
+          className="bg-aqua/70 transition-all rounded-sm px-3 font-bold text-white hover:bg-aqua"
         >
           Delete all
         </button>
