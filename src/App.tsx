@@ -3,6 +3,7 @@ import Shortcuts from './components/Shortcuts/Shortcuts';
 import Clock from './components/Clock';
 import Notes from './components/Notes/Notes';
 import Quote from './components/Quote';
+import Weather from './components/Weather/Weather';
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
           </p>
           <Shortcuts />
         </div>
-        <Quote />
+        <div className="flex flex-col grow items-end">
+          <Weather />
+          <Quote />
+        </div>
       </div>
     </main>
   );
