@@ -13,15 +13,15 @@ function App() {
         <Notes />
       </div>
       <div className="flex items-end">
-        <div className="flex flex-col items-start gap-3">
-          <p className="text-4xl font-bold text-aqua2 break-keep">
-            Welcome, <span className="text-red2">Erdinch</span>
-          </p>
-          <Shortcuts />
-        </div>
-        <div className="flex flex-col grow items-end">
+        <Shortcuts />
+        <div className="flex grow">
+          <div className="flex flex-col justify-end px-4">
+            <p className="text-4xl font-bold text-aqua2 break-keep">
+              Welcome, <span className="text-red2">Erdinch</span>
+            </p>
+            <Quote />
+          </div>
           <Weather />
-          <Quote />
         </div>
       </div>
     </main>
