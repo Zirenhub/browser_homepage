@@ -26,23 +26,25 @@ function DisplayNotes({ notes, deleteNote }: Props) {
             key={n.key}
           >
             <div className="flex flex-col w-full overflow-scroll">
-              <p className="text-xl font-bold">{n.title}</p>
+              <div className="flex justify-between">
+                <p className="text-xl font-bold">{n.title}</p>
+                <button
+                  type="button"
+                  onClick={() => openSettings(n.key)}
+                  className="text-xl"
+                >
+                  ...
+                </button>
+                {activeSettings === n.key && (
+                  <div className="absolute bg-white z-10 hover:bg-dim-gray right-3 top-10 rounded-md px-2">
+                    <button type="button" onClick={() => deleteNote(n.key)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </div>
               <p className="text-lg">{n.content}</p>
             </div>
-            <button
-              type="button"
-              onClick={() => openSettings(n.key)}
-              className="text-xl"
-            >
-              ...
-            </button>
-            {activeSettings === n.key && (
-              <div className="absolute bg-white z-10 hover:bg-white/70 right-3 top-10 rounded-md px-2">
-                <button type="button" onClick={() => deleteNote(n.key)}>
-                  Delete
-                </button>
-              </div>
-            )}
           </div>
         );
       })}
