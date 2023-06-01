@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      fira: ['Fira Code', 'Arial'],
+      cascadia: ['Cascadia Mono', 'Arial'],
     },
     colors: {
       transparent: 'transparent',
