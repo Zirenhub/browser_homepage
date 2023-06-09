@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { TOption, TSpin } from '../../types/slots';
-import variantOne from './combinations/variantOne';
+import { TOption, TSpin, TSpinResult } from '../../types/slots';
+import winChecker from './winChecker';
+import { winCombinations } from './winCombinations';
 
 const options: TOption[] = ['🍒', '🍌', '🥭', '🍇', '🍓', '🍍'];
 
@@ -10,7 +11,10 @@ function Slots() {
     spinValueIndex: 0,
     spinValues: [15, 50, 100, 200, 300, 400, 500],
   });
-  const [currentSpin, setCurrentSpin] = useState<TOption[][]>([[], [], []]);
+  const [currentSpin, setCurrentSpin] = useState<TSpinResult>({
+    spin: [[], [], []],
+    isWin: false,
+  });
 
   function checkWin(result: TOption[][]) {
     const modifiedSpin: TSpin = [];
@@ -20,28 +24,41 @@ function Slots() {
       });
       modifiedSpin.push(modifiedColumn);
     });
-    const variantOneIsWin = variantOne(modifiedSpin);
+    for (const combination of winCombinations) {
+      const result = winChecker(modifiedSpin, combination);
+      if (result.isWin) {
+        const payoutRatio = 0.9; // Adjust this value to balance the payout
+        const payout = Math.floor(
+          spinOptions.spinValues[spinOptions.spinValueIndex] * payoutRatio
+        );
+        setSpinOptions((prevState) => {
+          return { ...prevState, coins: prevState.coins + payout };
+        });
+        return result;
+      }
+    }
+    return { spin: modifiedSpin, isWin: false };
   }
 
   const spin = useCallback(() => {
     const length = 5;
-    const result = [];
-    for (let i = 0; i < currentSpin.length; i++) {
-      result.push(
+    const spinResult = [];
+    for (let i = 0; i < currentSpin.spin.length; i++) {
+      spinResult.push(
         Array.from(
           { length },
           () => options[Math.floor(Math.random() * options.length)]
         )
       );
     }
-    checkWin(result);
+    const result = checkWin(spinResult);
     return result;
-  }, [currentSpin.length]);
+  }, [currentSpin.spin.length]);
 
   function handleRespin() {
     const { coins, spinValueIndex, spinValues } = spinOptions;
     const currentSpinValue = spinValues[spinValueIndex];
-    if (coins > currentSpinValue) {
+    if (coins >= currentSpinValue) {
       setCurrentSpin(spin());
       setSpinOptions((prevState) => {
         return { ...prevState, coins: coins - currentSpinValue };
@@ -93,11 +110,15 @@ function Slots() {
           </button>
         </div>
       </div>
-      {currentSpin.map((r) => {
+      {currentSpin.spin.map((r) => {
         return (
           <div className="flex text-4xl gap-4 border-b-2 border-gray">
             {r.map((s) => {
-              return <p className="py-2">{s}</p>;
+              return (
+                <div className={`${s.isWin ? 'bg-[#2590EB]' : ''} p-2`}>
+                  <p>{s.content}</p>
+                </div>
+              );
             })}
           </div>
         );
@@ -105,7 +126,7 @@ function Slots() {
       <button
         type="button"
         onClick={handleRespin}
-        className="text-white bg-purple font-bold"
+        className="text-white bg-purple font-bold text-2xl"
       >
         Respin
       </button>

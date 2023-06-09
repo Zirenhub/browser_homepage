@@ -6,3 +6,5 @@ type SpinColumn = {
 }[];
 
 export type TSpin = SpinColumn[];
+
+export type TSpinResult = { spin: TSpin; isWin: boolean };
