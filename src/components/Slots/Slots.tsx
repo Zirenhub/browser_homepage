@@ -27,13 +27,6 @@ function Slots() {
     for (const combination of winCombinations) {
       const result = winChecker(modifiedSpin, combination);
       if (result.isWin) {
-        const payoutRatio = 0.9; // Adjust this value to balance the payout
-        const payout = Math.floor(
-          spinOptions.spinValues[spinOptions.spinValueIndex] * payoutRatio
-        );
-        setSpinOptions((prevState) => {
-          return { ...prevState, coins: prevState.coins + payout };
-        });
         return result;
       }
     }
@@ -59,8 +52,18 @@ function Slots() {
     const { coins, spinValueIndex, spinValues } = spinOptions;
     const currentSpinValue = spinValues[spinValueIndex];
     if (coins >= currentSpinValue) {
-      setCurrentSpin(spin());
+      const result = spin();
+      setCurrentSpin(result);
       setSpinOptions((prevState) => {
+        if (result.isWin) {
+          const payout = Math.floor(
+            spinOptions.spinValues[spinOptions.spinValueIndex] * 12
+          );
+          return {
+            ...prevState,
+            coins: prevState.coins + payout + coins - currentSpinValue,
+          };
+        }
         return { ...prevState, coins: coins - currentSpinValue };
       });
     }
