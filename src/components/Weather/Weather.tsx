@@ -1,27 +1,41 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getWeather } from '../../api/weather';
 import { TWeather } from '../../types/weather';
 
+const lineColors = ['text-red2', 'text-gray', 'text-green', 'text-purple'];
+
 function Weather() {
-  const [currentWeather, setCurrentWeather] = useState<TWeather | null>(null);
+  const [currentWeather, setCurrentWeather] = useState<TWeather | null>({
+    weather: {
+      main: 'Clouds',
+      description: 'few clouds',
+    },
+    temperature: {
+      feelsLike: 17.69,
+      humidity: 59,
+      temp: 18.27,
+      tempMax: 18.27,
+      tempMin: 18.27,
+    },
+    cloudiness: 13,
+    visibility: 10000,
+    sunrise: new Date(),
+    sunset: new Date(),
+  });
 
   useEffect(() => {
     const init = async () => {
       try {
         const weather = await getWeather();
+        console.log(weather);
         setCurrentWeather(weather);
       } catch (err) {
         // handle err
       }
     };
 
-    init();
+    // init();
   }, []);
-
-  const lineColors = useMemo(
-    () => ['text-red2', 'text-gray', 'text-green', 'text-purple'],
-    []
-  );
 
   function createPanel(
     details: { span: string; para: string | number; isTemp?: boolean }[]
