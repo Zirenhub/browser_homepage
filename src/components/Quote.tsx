@@ -15,7 +15,7 @@ function QuoteComp() {
       const resQuote = await getQuote();
       setQuote(resQuote);
     };
-    // init();
+    init();
   }, []);
 
   return (

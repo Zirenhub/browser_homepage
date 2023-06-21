@@ -5,23 +5,7 @@ import { TWeather } from '../../types/weather';
 const lineColors = ['text-red2', 'text-gray', 'text-green', 'text-purple'];
 
 function Weather() {
-  const [currentWeather, setCurrentWeather] = useState<TWeather | null>({
-    weather: {
-      main: 'Clouds',
-      description: 'few clouds',
-    },
-    temperature: {
-      feelsLike: 17.69,
-      humidity: 59,
-      temp: 18.27,
-      tempMax: 18.27,
-      tempMin: 18.27,
-    },
-    cloudiness: 13,
-    visibility: 10000,
-    sunrise: new Date(),
-    sunset: new Date(),
-  });
+  const [currentWeather, setCurrentWeather] = useState<TWeather | null>(null);
 
   useEffect(() => {
     const init = async () => {
@@ -34,7 +18,7 @@ function Weather() {
       }
     };
 
-    // init();
+    init();
   }, []);
 
   function createPanel(
