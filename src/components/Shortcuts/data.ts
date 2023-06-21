@@ -3,9 +3,11 @@ import redditIco from '../../assets/reddit.svg';
 import twitchIco from '../../assets/twitch.svg';
 import twitterIco from '../../assets/twitter.svg';
 import windyIco from '../../assets/windy.svg';
+
+import { TShortcut } from '../../types/shortcuts';
 import { v4 as uuidv4 } from 'uuid';
 
-const shortcuts = [
+const shortcuts: TShortcut[] = [
   {
     name: 'Youtube',
     link: 'https://www.youtube.com/',
