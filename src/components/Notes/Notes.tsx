@@ -58,7 +58,7 @@ function Notes() {
   }, []);
 
   return (
-    <div className="bg-dim-black/70 rounded-sm shadow-lg flex flex-col overflow-y-scroll overflow-x-hidden">
+    <div className="bg-dim-black/70 grow rounded-sm shadow-lg flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="flex flex-col sticky top-0 bg-dim-black z-10 pb-1">
         <input
           type="text"
