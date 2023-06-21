@@ -57,7 +57,7 @@ function Slots() {
       setSpinOptions((prevState) => {
         if (result.isWin) {
           const payout = Math.floor(
-            spinOptions.spinValues[spinOptions.spinValueIndex] * 12
+            spinOptions.spinValues[spinOptions.spinValueIndex] * 0.2
           );
           return {
             ...prevState,
